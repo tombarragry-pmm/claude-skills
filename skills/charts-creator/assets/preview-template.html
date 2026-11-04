@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{NAME} preview</title>
+<style id="inter-css">
+{FONT_CSS}</style>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px; font-family: 'Inter', sans-serif; background: #FAFAFA; color: #1A1A2E; }
+.wrap { max-width: 800px; margin: 0 auto; }
+.preview { background: #FFFFFF; border: 1px solid #E2E3E9; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.preview svg { width: 100%; height: auto; display: block; }
+.buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { flex: 1 1 0; min-width: 200px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 8px; border: none; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 120ms ease, transform 120ms ease; }
+.btn-png { background: #2F6FEB; color: #FFFFFF; }
+.btn-png:hover { background: #1F5AD6; }
+.btn-svg { background: #1A1A2E; color: #FFFFFF; }
+.btn-svg:hover { background: #44475A; }
+.btn:active { transform: translateY(1px); }
+.btn svg.icon { width: 16px; height: 16px; }
+a { color: #2F6FEB; } a:hover { color: #1A48A8; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="preview" id="preview"></div>
+<div class="buttons">
+<button class="btn btn-png" onclick="downloadPNG()">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+Download PNG
+</button>
+<button class="btn btn-svg" onclick="downloadSVG()">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+Download SVG
+</button>
+</div>
+</div>
+<script>
+const SVG_TEXT = `{SVG_ESCAPED}`;
+const FILENAME = "{NAME}";
+document.getElementById("preview").innerHTML = SVG_TEXT;
+function downloadSVG() {
+  const blob = new Blob([SVG_TEXT], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = FILENAME + ".svg";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+// Inter is embedded in this file (assets/inter-embed.css, injected by build_preview.py),
+// so the PNG export never touches the network. Sandboxed previews block font fetches
+// and blob: image URLs, which made the old export fail silently.
+function embedFonts(svg) {
+  const css = document.getElementById("inter-css").textContent;
+  return svg.replace(/@import url\([^)]*\);/, css);
+}
+function saveBlob(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function downloadPNG() {
+  const svg = embedFonts(SVG_TEXT);
+  const w = 720, h = {H};
+  const img = new Image();
+  img.onload = () => {
+    setTimeout(() => {
+      const c = document.createElement("canvas");
+      c.width = 1920; c.height = Math.round(h * 1920 / w);
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = "#FFFFFF"; ctx.fillRect(0, 0, c.width, c.height);
+      ctx.drawImage(img, 0, 0, c.width, c.height);
+      if (c.toBlob) {
+        c.toBlob(b => b ? saveBlob(b, FILENAME + ".png") : alert("PNG export failed."), "image/png");
+      }
+    }, 100);
+  };
+  img.onerror = () => alert("PNG export failed to render the chart.");
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+</script>
+</body>
+</html>

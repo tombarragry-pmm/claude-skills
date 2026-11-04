@@ -15,5 +15,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | Skill | What it does | Originally built |
 |---|---|---|
 | [screenshot-to-mockup](skills/screenshot-to-mockup) | Turns a raw product screenshot into a clean, marketing-ready UI mockup PNG | November 2026 |
+| [charts-creator](skills/charts-creator) | Builds on-brand charts as an HTML preview with PNG and SVG downloads, plus a built-in layout checker | November 2026 |
 
 More skills are added regularly.
