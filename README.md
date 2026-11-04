@@ -29,5 +29,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [webinar-organization](skills/webinar-organization) | Walks a first-timer through running a partner webinar | November 2026 |
 | [tom-pmm-customer-quote-finder](skills/tom-pmm-customer-quote-finder) | Finds verbatim customer quotes in a Notion library and logs gaps | November 2026 |
 | [making-a-remotion-video](skills/making-a-remotion-video) | Plans and writes Remotion video code, with lessons learned | November 2026 |
+| [homepage-positioning-audit](skills/homepage-positioning-audit) | Audits a homepage against public positioning frameworks | November 2026 |
 
 More skills are added regularly.
