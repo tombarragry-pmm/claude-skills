@@ -20,5 +20,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-cio-email-creation](skills/tom-pmm-cio-email-creation) | Builds lifecycle emails in Customer.io Design Studio | November 2026 |
 | [tom-pmm-inapp-changelog](skills/tom-pmm-inapp-changelog) | Writes short in-app changelog posts | November 2026 |
 | [tom-pmm-changelog](skills/tom-pmm-changelog) | Writes public changelog posts | November 2026 |
+| [tom-pmm-create-inapp-post](skills/tom-pmm-create-inapp-post) | Drives a browser to publish a finished changelog post | November 2026 |
 
 More skills are added regularly.
