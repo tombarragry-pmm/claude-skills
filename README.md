@@ -31,5 +31,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [making-a-remotion-video](skills/making-a-remotion-video) | Plans and writes Remotion video code, with lessons learned | November 2026 |
 | [homepage-positioning-audit](skills/homepage-positioning-audit) | Audits a homepage against public positioning frameworks | November 2026 |
 | [case-study-proposal](skills/case-study-proposal) | Turns account knowledge into a case study proposal and a Linear ticket | November 2026 |
+| [tom-pmm-data-story](skills/tom-pmm-data-story) | Builds a usage-data story from aggregated product data | November 2026 |
 
 More skills are added regularly.
