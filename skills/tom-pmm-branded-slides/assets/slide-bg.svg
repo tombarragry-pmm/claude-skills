@@ -1,0 +1,6 @@
+<svg width="2560" height="1440" viewBox="0 0 2560 1440" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Placeholder accent background (16:9). White slide with an organic accent shape bleeding off the right edge (keep x < 2110 px clear for text). Replace with your own artwork. -->
+<rect width="2560" height="1440" fill="#FFFFFF"/>
+<path d="M2560 0V1440H2330C2190 1300 2160 1120 2240 960C2320 800 2300 600 2200 440C2110 290 2160 110 2280 0H2560Z" fill="#E8F0FD"/>
+<path d="M2560 160V1300H2450C2360 1180 2350 1040 2410 900C2470 760 2450 600 2390 470C2340 360 2380 240 2460 160H2560Z" fill="#2F6FEB"/>
+</svg>

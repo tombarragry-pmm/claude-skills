@@ -1,0 +1,14 @@
+<svg width="2560" height="1440" viewBox="0 0 2560 1440" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Placeholder cover background (16:9). White left half, accent shape cluster on the right half. Replace with your own artwork. -->
+<defs>
+<linearGradient id="g" x1="1500" y1="200" x2="2560" y2="1300" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#7FA6F2"/>
+<stop offset="1" stop-color="#2F6FEB"/>
+</linearGradient>
+</defs>
+<rect width="2560" height="1440" fill="#FFFFFF"/>
+<circle cx="2050" cy="720" r="560" fill="#CFE0FB"/>
+<circle cx="2240" cy="520" r="360" fill="#B7CDF7"/>
+<circle cx="1960" cy="860" r="300" fill="url(#g)"/>
+<rect x="2200" y="900" width="260" height="260" rx="64" fill="#5CCFC0"/>
+</svg>
