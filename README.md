@@ -41,5 +41,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-branded-slides-pptx](skills/tom-pmm-branded-slides-pptx) | Builds branded PPTX and PDF decks with render checks | November 2026 |
 | [tom-pmm-landing-page-copy](skills/tom-pmm-landing-page-copy) | Runs a section-by-section landing page copy process | November 2026 |
 | [create-cms-feature-page](skills/create-cms-feature-page) | Builds a feature page in a visual CMS from a brief | November 2026 |
+| [tom-pmm-gmail-signature](skills/tom-pmm-gmail-signature) | Generates a paste-ready branded email signature | November 2026 |
 
 More skills are added regularly.
