@@ -17,5 +17,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [screenshot-to-mockup](skills/screenshot-to-mockup) | Turns a raw product screenshot into a clean, marketing-ready UI mockup PNG | November 2026 |
 | [charts-creator](skills/charts-creator) | Builds on-brand charts as an HTML preview with PNG and SVG downloads, plus a built-in layout checker | November 2026 |
 | [tom-pmm-email-creation](skills/tom-pmm-email-creation) | Writes copy, graphics and Customer.io drafts for broadcast and campaign emails | November 2026 |
+| [tom-pmm-cio-email-creation](skills/tom-pmm-cio-email-creation) | Builds lifecycle emails in Customer.io Design Studio | November 2026 |
 
 More skills are added regularly.
