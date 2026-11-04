@@ -34,5 +34,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-data-story](skills/tom-pmm-data-story) | Builds a usage-data story from aggregated product data | November 2026 |
 | [tom-pmm-enablement-content](skills/tom-pmm-enablement-content) | Picks the best content for a sales rep from a Google Sheet library | November 2026 |
 | [add-to-content-library](skills/add-to-content-library) | Adds a content piece to the library sheet, with duplicate checks | November 2026 |
+| [tom-pmm-demo-planner](skills/tom-pmm-demo-planner) | Plans, scripts and logs interactive product demos | November 2026 |
 
 More skills are added regularly.
