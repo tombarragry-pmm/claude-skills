@@ -27,5 +27,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-product-update-email](skills/tom-pmm-product-update-email) | Writes copy and graphics for monthly product update emails | November 2026 |
 | [tom-pmm-nurture-email](skills/tom-pmm-nurture-email) | Writes plain text nurture emails for leads | November 2026 |
 | [webinar-organization](skills/webinar-organization) | Walks a first-timer through running a partner webinar | November 2026 |
+| [tom-pmm-customer-quote-finder](skills/tom-pmm-customer-quote-finder) | Finds verbatim customer quotes in a Notion library and logs gaps | November 2026 |
 
 More skills are added regularly.
