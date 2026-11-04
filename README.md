@@ -23,5 +23,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-create-inapp-post](skills/tom-pmm-create-inapp-post) | Drives a browser to publish a finished changelog post | November 2026 |
 | [weekly-person-slides](skills/weekly-person-slides) | Pulls a person's tasks from Linear into two weekly meeting slides | November 2026 |
 | [tom-pmm-launch-linear-scaffolding](skills/tom-pmm-launch-linear-scaffolding) | Sets up Linear projects and issues for a feature launch | November 2026 |
+| [product-update-email-tasks](skills/product-update-email-tasks) | Creates the Linear project and issues for a monthly product update | November 2026 |
 
 More skills are added regularly.
