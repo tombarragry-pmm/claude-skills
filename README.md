@@ -18,5 +18,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [charts-creator](skills/charts-creator) | Builds on-brand charts as an HTML preview with PNG and SVG downloads, plus a built-in layout checker | November 2026 |
 | [tom-pmm-email-creation](skills/tom-pmm-email-creation) | Writes copy, graphics and Customer.io drafts for broadcast and campaign emails | November 2026 |
 | [tom-pmm-cio-email-creation](skills/tom-pmm-cio-email-creation) | Builds lifecycle emails in Customer.io Design Studio | November 2026 |
+| [tom-pmm-inapp-changelog](skills/tom-pmm-inapp-changelog) | Writes short in-app changelog posts | November 2026 |
 
 More skills are added regularly.
