@@ -38,5 +38,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [research-project-description](skills/research-project-description) | Writes project descriptions for a research repository product | November 2026 |
 | [tom-pmm-content-review](skills/tom-pmm-content-review) | Reviews copy against tone, style and AI-language rules | November 2026 |
 | [tom-pmm-branded-slides](skills/tom-pmm-branded-slides) | Builds branded Google Slides decks | November 2026 |
+| [tom-pmm-branded-slides-pptx](skills/tom-pmm-branded-slides-pptx) | Builds branded PPTX and PDF decks with render checks | November 2026 |
 
 More skills are added regularly.
