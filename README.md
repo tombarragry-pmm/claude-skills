@@ -21,5 +21,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-inapp-changelog](skills/tom-pmm-inapp-changelog) | Writes short in-app changelog posts | November 2026 |
 | [tom-pmm-changelog](skills/tom-pmm-changelog) | Writes public changelog posts | November 2026 |
 | [tom-pmm-create-inapp-post](skills/tom-pmm-create-inapp-post) | Drives a browser to publish a finished changelog post | November 2026 |
+| [weekly-person-slides](skills/weekly-person-slides) | Pulls a person's tasks from Linear into two weekly meeting slides | November 2026 |
 
 More skills are added regularly.
