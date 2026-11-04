@@ -25,5 +25,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-launch-linear-scaffolding](skills/tom-pmm-launch-linear-scaffolding) | Sets up Linear projects and issues for a feature launch | November 2026 |
 | [product-update-email-tasks](skills/product-update-email-tasks) | Creates the Linear project and issues for a monthly product update | November 2026 |
 | [tom-pmm-product-update-email](skills/tom-pmm-product-update-email) | Writes copy and graphics for monthly product update emails | November 2026 |
+| [tom-pmm-nurture-email](skills/tom-pmm-nurture-email) | Writes plain text nurture emails for leads | November 2026 |
 
 More skills are added regularly.
