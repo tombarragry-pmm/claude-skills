@@ -49,5 +49,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-brand-design](skills/tom-pmm-brand-design) | Tool-agnostic brand rules for colors, type, logo and on-screen copy | November 2026 |
 | [tom-pmm-panel-ui](skills/tom-pmm-panel-ui) | Mocks up app screens as PNGs from your tokens, with lint, render and preview scripts | November 2026 |
 | [tom-pmm-survey-design](skills/tom-pmm-survey-design) | Keeps survey widget designs and reviews true to the real component library | November 2026 |
+| [tom-pmm-og-image-creator](skills/tom-pmm-og-image-creator) | Routes every blog OG image request to the approved generator artifact | November 2026 |
 
 More skills are added regularly.
