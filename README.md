@@ -42,5 +42,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [tom-pmm-landing-page-copy](skills/tom-pmm-landing-page-copy) | Runs a section-by-section landing page copy process | November 2026 |
 | [create-cms-feature-page](skills/create-cms-feature-page) | Builds a feature page in a visual CMS from a brief | November 2026 |
 | [tom-pmm-gmail-signature](skills/tom-pmm-gmail-signature) | Generates a paste-ready branded email signature | November 2026 |
+| [how-to-talk-about-our-integration](skills/how-to-talk-about-our-integration) | Checks customer-facing copy against a live feature brief before writing about a launch | November 2026 |
 
 More skills are added regularly.
