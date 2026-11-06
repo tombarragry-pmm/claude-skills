@@ -45,5 +45,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [how-to-talk-about-our-integration](skills/how-to-talk-about-our-integration) | Checks customer-facing copy against a live feature brief before writing about a launch | November 2026 |
 | [feature-brief-skill](skills/feature-brief-skill) | Walks a PM or product marketer through a feature brief in chat, then pushes it to Notion | November 2026 |
 | [how-to-talk-about-our-product](skills/how-to-talk-about-our-product) | Messaging guide for one product: value props, personas, approved phrases and objections | November 2026 |
+| [tom-pmm-product-map](skills/tom-pmm-product-map) | Grounds product tours and demo scripts in a screen-by-screen product map | November 2026 |
 
 More skills are added regularly.
