@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{NAME} preview</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px; font-family: 'Inter', sans-serif; background: #FAFAFA; color: #1A1A2E; }
+.wrap { max-width: 1200px; margin: 0 auto; }
+.preview { margin-bottom: 16px; line-height: 0; }
+.preview canvas { width: 100%; height: auto; display: block; }
+.preview canvas.plain { outline: 1px solid #E2E3E9; outline-offset: -1px; } /* preview only, never in the PNG */
+.bgbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0 0 14px; }
+.bgbar .label { font-size: 13px; font-weight: 600; margin-right: 4px; }
+.sw { width: 64px; height: 36px; border-radius: 6px; border: 1px solid #E2E3E9; padding: 0; cursor: pointer; background-size: cover; background-position: center; position: relative; outline: none; }
+.sw.none { background: #FFFFFF; font: 600 12px 'Inter', sans-serif; color: #6B6E7B; }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #2F6FEB; border-color: transparent; }
+.sw:focus-visible { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #2F6FEB; }
+.sw span { position: absolute; left: 4px; bottom: 2px; font: 600 10px 'Inter', sans-serif; color: #FFFFFF; text-shadow: 0 0 3px rgba(26,26,46,.7); }
+.tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 56px; }
+.tools .label { font-size: 13px; font-weight: 600; margin-right: 4px; min-width: 76px; }
+.tb { height: 36px; min-width: 36px; padding: 0 10px; border-radius: 6px; border: 1px solid #E2E3E9; background: #FFFFFF; color: #1A1A2E; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font: 600 13px 'Inter', sans-serif; cursor: pointer; }
+.tb svg { width: 18px; height: 18px; }
+.tb:hover { background: #F5F5F5; }
+.tb[aria-pressed="true"] { border-color: #2F6FEB; background: rgba(47,111,235,.10); color: #13306F; }
+.tb:disabled { opacity: .4; cursor: default; }
+.tools .sep { width: 1px; height: 24px; background: #E2E3E9; margin: 0 4px; }
+.col { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #E2E3E9; cursor: pointer; padding: 0; }
+.col[aria-pressed="true"] { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #2F6FEB; }
+.bgbar .label { min-width: 76px; }
+.preview canvas.drawing { cursor: crosshair; touch-action: none; }
+.meta { font-size: 13px; color: #6B6E7B; margin: 0 0 12px; }
+.buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { flex: 1 1 0; min-width: 200px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 8px; border: none; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 120ms ease, transform 120ms ease; }
+.btn-png { background: #2F6FEB; color: #FFFFFF; }
+.btn-png:hover { background: #1F5AD6; }
+.btn-1x { background: #1A1A2E; color: #FFFFFF; }
+.btn-1x:hover { background: #44475A; }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bgbar" role="group" aria-label="Background">
+  <span class="label">Background</span>
+  <button class="sw none" type="button" data-bg="none" aria-pressed="true" title="No background">None</button>
+  <!--SWATCHES-->
+</div>
+<div class="tools" role="toolbar" aria-label="Annotate">
+  <span class="label">Annotate</span>
+  <button class="tb" type="button" data-tool="arrow" aria-pressed="false" title="Arrow (A)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5"/><path d="M9 5h10v10"/></svg>Arrow</button>
+  <button class="tb" type="button" data-tool="rect" aria-pressed="false" title="Rectangle (R)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>Rectangle</button>
+  <button class="tb" type="button" data-tool="ellipse" aria-pressed="false" title="Ellipse (E)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="7"/></svg>Ellipse</button>
+  <button class="tb" type="button" data-tool="line" aria-pressed="false" title="Line (L)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5"/></svg>Line</button>
+  <span class="sep"></span>
+  <button class="tb" type="button" data-style="solid" aria-pressed="true" title="Solid style"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 20 6"/></svg>Solid</button>
+  <button class="tb" type="button" data-style="hand" aria-pressed="false" title="Hand-drawn style (H)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c3-1 4-5 7-6s4 3 7 1 3-5 4-6"/></svg>Hand-drawn</button>
+  <span class="sep"></span>
+  <button class="col" type="button" data-col="#2F6FEB" aria-pressed="true" title="Accent" style="background:#2F6FEB"></button>
+  <button class="col" type="button" data-col="#F2643D" aria-pressed="false" title="Coral" style="background:#F2643D"></button>
+  <button class="col" type="button" data-col="#1A1A2E" aria-pressed="false" title="Black" style="background:#1A1A2E"></button>
+  <span class="sep"></span>
+  <button class="tb" type="button" id="undo" title="Undo (Ctrl/Cmd+Z)" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>Undo</button>
+  <button class="tb" type="button" id="clear" title="Remove all shapes" disabled>Clear</button>
+</div>
+<div class="preview"><canvas id="view"></canvas></div>
+<p class="meta" id="meta"></p>
+<div class="buttons">
+<button class="btn btn-png" type="button" onclick="dl(1)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+Download PNG (1x)
+</button>
+<button class="btn btn-1x" type="button" onclick="dl(2)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+Download PNG (2x)
+</button>
+</div>
+</div>
+<img id="shot" alt="{NAME}" src="data:image/png;base64,{PNG_B64}" hidden>
+<script>
+const FILENAME = "{NAME}";
+const SCALE = {SCALE};                 // pixel ratio of the embedded render (from render_screen.py)
+const OUT_1X = 1600;                   // every export is 1600px wide at 1x and 3200px at 2x
+const PAD = 64, RADIUS = 16;           // 1x px, same defaults as scripts/add_background.py
+const BGS = {BG_JSON};                 // gradient-1 … gradient-N, from assets/backgrounds
+let current = "{INITIAL_BG}";
+const shot = document.getElementById("shot"), view = document.getElementById("view");
+const bgImgs = {};
+for (const [k, src] of Object.entries(BGS)) { const im = new Image(); im.src = src; bgImgs[k] = im; }
+
+// Annotations are stored in screen pixels (relative to the screen's top-left), so they stay on the
+// same spot when the background changes. Stroke = 4px at the 1x export of the plain screen.
+const shapes = [];
+let tool = null, color = "#2F6FEB", style = "solid", drag = null, base = null;
+const STROKE = () => 4 * shot.naturalWidth / OUT_1X;
+
+function compose(bg) {
+  const s = SCALE, w = shot.naturalWidth, h = shot.naturalHeight;
+  const c = document.createElement("canvas");
+  if (bg === "none") { c.width = w; c.height = h; c.getContext("2d").drawImage(shot, 0, 0); c.ox = 0; c.oy = 0; return c; }
+  const pad = Math.round(PAD * s), r = Math.round(RADIUS * s);
+  c.width = w + 2 * pad; c.height = h + 2 * pad; c.ox = pad; c.oy = pad;
+  const ctx = c.getContext("2d");
+  const g = bgImgs[bg], k = Math.max(c.width / g.naturalWidth, c.height / g.naturalHeight);
+  const gw = g.naturalWidth * k, gh = g.naturalHeight * k;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(g, (c.width - gw) / 2, (c.height - gh) / 2, gw, gh);
+  // fresh fine grain, so the 900px gradients don't look soft at 2x
+  const id = ctx.getImageData(0, 0, c.width, c.height), d = id.data;
+  let seed = 7; const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
+  for (let i = 0; i < d.length; i += 4) {
+    const n = (rnd() + rnd() + rnd() - 1.5) * 7;
+    d[i] += n; d[i + 1] += n; d[i + 2] += n;
+  }
+  ctx.putImageData(id, 0, 0);
+  const path = new Path2D(); path.roundRect(pad, pad, w, h, r);
+  ctx.save();
+  ctx.shadowColor = "rgba(0,0,0,0.14)"; ctx.shadowBlur = 48 * s; ctx.shadowOffsetY = 8 * s;
+  ctx.fillStyle = "#FFFFFF"; ctx.fill(path);
+  ctx.restore();
+  ctx.save(); ctx.clip(path); ctx.drawImage(shot, pad, pad); ctx.restore();
+  return c;
+}
+
+// --- Hand-drawn style: wobbly double strokes, overshooting corners, open loops (seeded, so a shape never changes) ---
+function rng(seed) { let t = seed >>> 0; return () => { t = (t + 0x6D2B79F5) >>> 0; let r = Math.imul(t ^ (t >>> 15), 1 | t); r ^= r + Math.imul(r ^ (r >>> 7), 61 | r); return ((r ^ (r >>> 14)) >>> 0) / 4294967296; }; }
+function roughLine(ctx, ax, ay, bx, by, r, lw, bow) {
+  const len = Math.hypot(bx - ax, by - ay) || 1, nx = -(by - ay) / len, ny = (bx - ax) / len;
+  const j = () => (r() - 0.5) * lw * 1.1;
+  const b = (bow == null ? Math.min(len * 0.02, lw * 2) : bow) * (r() < 0.5 ? -1 : 1);
+  for (let pass = 0; pass < 2; pass++) {
+    const sx = ax + j(), sy = ay + j(), ex = bx + j(), ey = by + j();
+    const t1 = 0.3 + r() * 0.2, t2 = 0.6 + r() * 0.2, o1 = b * (0.6 + r() * 0.8), o2 = b * (0.6 + r() * 0.8);
+    ctx.beginPath(); ctx.moveTo(sx, sy);
+    ctx.bezierCurveTo(ax + (bx - ax) * t1 + nx * o1 + j(), ay + (by - ay) * t1 + ny * o1 + j(),
+                      ax + (bx - ax) * t2 + nx * o2 + j(), ay + (by - ay) * t2 + ny * o2 + j(), ex, ey);
+    ctx.lineWidth = pass ? lw * 0.7 : lw; ctx.stroke();
+  }
+}
+function drawHand(ctx, sh, x1, y1, x2, y2, lw) {
+  const r = rng(sh.seed || 1), hl = lw * 0.9;
+  ctx.lineWidth = hl;
+  if (sh.t === "rect") {
+    const L = Math.min(x1, x2), T = Math.min(y1, y2), R = Math.max(x1, x2), B = Math.max(y1, y2), o = () => lw * (1 + r() * 2.5);
+    roughLine(ctx, L - o(), T, R + o(), T, r, hl);
+    roughLine(ctx, R, T - o(), R, B + o(), r, hl);
+    roughLine(ctx, R + o(), B, L - o(), B, r, hl);
+    roughLine(ctx, L, B + o(), L, T - o(), r, hl);
+  } else if (sh.t === "ellipse") {
+    const cx = (x1 + x2) / 2, cy = (y1 + y2) / 2, rx = Math.abs(x2 - x1) / 2, ry = Math.abs(y2 - y1) / 2;
+    for (let pass = 0; pass < 2; pass++) {
+      // smooth, low-frequency wobble; the loop overshoots its start so it reads as one quick pen stroke
+      const start = -Math.PI / 2 - 0.5 + r() * 0.3, span = Math.PI * 2 + 0.3 + r() * 0.3, n = 72;
+      const p1 = r() * 6.3, p2 = r() * 6.3, a1 = 0.015 + r() * 0.015, a2 = 0.01 + r() * 0.01;
+      const drift = (pass ? -1 : 1) * (0.03 + r() * 0.02);
+      ctx.beginPath();
+      for (let i = 0; i <= n; i++) {
+        const t = i / n, a = start + span * t;
+        const k = 1 + a1 * Math.sin(2 * a + p1) + a2 * Math.sin(3 * a + p2) + drift * t;
+        const px = cx + Math.cos(a) * rx * k, py = cy + Math.sin(a) * ry * k;
+        i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+      }
+      ctx.lineWidth = pass ? hl * 0.7 : hl; ctx.stroke();
+    }
+  } else {
+    roughLine(ctx, x1, y1, x2, y2, r, hl);
+    if (sh.t === "arrow") {                                                  // open, slightly uneven head
+      const ang = Math.atan2(y2 - y1, x2 - x1), len = Math.hypot(x2 - x1, y2 - y1), h = Math.min(lw * 5.5, len * 0.5);
+      for (const side of [-1, 1]) {
+        const a = ang + Math.PI + side * (0.42 + (r() - 0.5) * 0.12), hh = h * (0.9 + r() * 0.2);
+        roughLine(ctx, x2, y2, x2 + Math.cos(a) * hh, y2 + Math.sin(a) * hh, r, hl, lw * 0.4);
+      }
+    }
+  }
+}
+
+function drawShape(ctx, sh, ox, oy) {
+  const lw = STROKE();
+  const x1 = sh.x1 + ox, y1 = sh.y1 + oy, x2 = sh.x2 + ox, y2 = sh.y2 + oy;
+  ctx.save();
+  ctx.strokeStyle = sh.c; ctx.fillStyle = sh.c; ctx.lineWidth = lw; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  // a soft halo keeps marks readable on both light screens and gradients
+  if (sh.s === "hand") { drawHand(ctx, sh, x1, y1, x2, y2, lw); ctx.restore(); return; }
+  if (sh.t === "rect") {
+    ctx.beginPath(); ctx.roundRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1), lw * 2); ctx.stroke();
+  } else if (sh.t === "ellipse") {
+    ctx.beginPath(); ctx.ellipse((x1 + x2) / 2, (y1 + y2) / 2, Math.abs(x2 - x1) / 2, Math.abs(y2 - y1) / 2, 0, 0, Math.PI * 2); ctx.stroke();
+  } else if (sh.t === "line") {
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  } else {
+    // Arrow: a tapered shaft (hairline at the tail, widest where it meets the head) plus a filled head
+    const ang = Math.atan2(y2 - y1, x2 - x1), len = Math.hypot(x2 - x1, y2 - y1);
+    const head = Math.min(lw * 4.5, len * 0.6), hw = head * 0.62;          // head length and half-width
+    const tail = lw * 0.25, neck = lw * 0.9;                                 // half-widths of the shaft
+    const ux = Math.cos(ang), uy = Math.sin(ang), nx = -uy, ny = ux;
+    const bx = x2 - ux * head * 0.85, by = y2 - uy * head * 0.85;          // where the shaft meets the head
+    ctx.beginPath();
+    ctx.moveTo(x1 + nx * tail, y1 + ny * tail);
+    ctx.lineTo(bx + nx * neck, by + ny * neck);
+    ctx.lineTo(x2 - ux * head + nx * hw, y2 - uy * head + ny * hw);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x2 - ux * head - nx * hw, y2 - uy * head - ny * hw);
+    ctx.lineTo(bx - nx * neck, by - ny * neck);
+    ctx.lineTo(x1 - nx * tail, y1 - ny * tail);
+    ctx.arc(x1, y1, tail, ang + Math.PI / 2, ang - Math.PI / 2);         // rounded tail
+    ctx.closePath();
+    ctx.lineWidth = lw * 0.35; ctx.fill(); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function withShapes(c, extra) {
+  const ctx = c.getContext("2d");
+  for (const sh of shapes) drawShape(ctx, sh, c.ox, c.oy);
+  if (extra) drawShape(ctx, extra, c.ox, c.oy);
+  return c;
+}
+
+function paint() {
+  view.width = base.width; view.height = base.height;
+  const ctx = view.getContext("2d"); ctx.drawImage(base, 0, 0);
+  for (const sh of shapes) drawShape(ctx, sh, base.ox, base.oy);
+  if (drag && drag.moved) drawShape(ctx, drag, base.ox, base.oy);
+  document.getElementById("undo").disabled = document.getElementById("clear").disabled = !shapes.length;
+}
+
+function render() {
+  base = compose(current);
+  paint();
+  const h1 = Math.round(base.height * OUT_1X / base.width), h2 = Math.round(base.height * 2 * OUT_1X / base.width);
+  document.getElementById("meta").textContent =
+    OUT_1X + " × " + h1 + "px at 1x · " + 2 * OUT_1X + " × " + h2 + "px at 2x · " +
+    (current === "none" ? "no background" : current.replace("-", " ")) +
+    (shapes.length ? " · " + shapes.length + " annotation" + (shapes.length > 1 ? "s" : "") : "");
+  view.classList.toggle("plain", current === "none");
+  document.querySelectorAll(".sw").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.bg === current)));
+}
+
+document.querySelectorAll(".sw").forEach(b => b.addEventListener("click", () => { current = b.dataset.bg; render(); }));
+
+// --- annotation tools ---
+function setTool(t) {
+  tool = tool === t ? null : t;
+  document.querySelectorAll(".tb[data-tool]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tool === tool)));
+  view.classList.toggle("drawing", !!tool);
+}
+document.querySelectorAll(".tb[data-tool]").forEach(b => b.addEventListener("click", () => setTool(b.dataset.tool)));
+document.querySelectorAll(".col").forEach(b => b.addEventListener("click", () => {
+  color = b.dataset.col;
+  document.querySelectorAll(".col").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+}));
+function setStyle(v) {
+  style = v;
+  document.querySelectorAll(".tb[data-style]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.style === style)));
+}
+document.querySelectorAll(".tb[data-style]").forEach(b => b.addEventListener("click", () => setStyle(b.dataset.style)));
+function undo() { if (shapes.length) { shapes.pop(); render(); } }
+document.getElementById("undo").addEventListener("click", undo);
+document.getElementById("clear").addEventListener("click", () => { shapes.length = 0; render(); });
+document.addEventListener("keydown", e => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z") { e.preventDefault(); undo(); return; }
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const map = { a: "arrow", r: "rect", e: "ellipse", l: "line" }, k = e.key.toLowerCase();
+  if (map[k]) setTool(map[k]);
+  if (k === "h") setStyle(style === "hand" ? "solid" : "hand");
+  if (e.key === "Escape") { if (drag) { drag = null; paint(); } else if (tool) setTool(tool); }
+});
+function toScreen(e) {
+  const r = view.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * view.width / r.width - base.ox, y: (e.clientY - r.top) * view.height / r.height - base.oy };
+}
+view.addEventListener("pointerdown", e => {
+  if (!tool) return;
+  const p = toScreen(e); view.setPointerCapture(e.pointerId);
+  drag = { t: tool, c: color, s: style, seed: Math.floor(Math.random() * 1e9), x1: p.x, y1: p.y, x2: p.x, y2: p.y, moved: false };
+});
+view.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const p = toScreen(e);
+  let x2 = p.x, y2 = p.y;
+  if (e.shiftKey) {                              // Shift: 45° steps for arrows and lines, squares and circles for shapes
+    const dx = x2 - drag.x1, dy = y2 - drag.y1;
+    if (drag.t === "rect" || drag.t === "ellipse") { const m = Math.max(Math.abs(dx), Math.abs(dy)); x2 = drag.x1 + Math.sign(dx || 1) * m; y2 = drag.y1 + Math.sign(dy || 1) * m; }
+    else { const a = Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) * Math.PI / 4, l = Math.hypot(dx, dy); x2 = drag.x1 + Math.cos(a) * l; y2 = drag.y1 + Math.sin(a) * l; }
+  }
+  drag.x2 = x2; drag.y2 = y2;
+  drag.moved = Math.hypot(drag.x2 - drag.x1, drag.y2 - drag.y1) > STROKE() * 2;
+  paint();
+});
+view.addEventListener("pointerup", () => {
+  if (!drag) return;
+  if (drag.moved) { const { moved, ...sh } = drag; shapes.push(sh); }
+  drag = null; render();
+});
+
+function save(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function dl(x) {
+  // x = 1 or 2: the export is always OUT_1X * x pixels wide, whatever the render scale
+  const src = withShapes(compose(current));
+  const c = document.createElement("canvas");
+  c.width = OUT_1X * x; c.height = Math.round(src.height * c.width / src.width);
+  const ctx = c.getContext("2d"); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(src, 0, 0, c.width, c.height);
+  const suffix = current === "none" ? "" : "-" + current;
+  c.toBlob(b => save(b, FILENAME + suffix + (x === 2 ? "@2x" : "") + ".png"), "image/png");
+}
+
+Promise.all([shot, ...Object.values(bgImgs)].map(im => im.decode().catch(() => null))).then(render);
+</script>
+</body>
+</html>

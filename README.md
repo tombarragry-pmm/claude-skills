@@ -47,5 +47,6 @@ Each skill is a folder with a `SKILL.md` (the instructions Claude follows) and a
 | [how-to-talk-about-our-product](skills/how-to-talk-about-our-product) | Messaging guide for one product: value props, personas, approved phrases and objections | November 2026 |
 | [tom-pmm-product-map](skills/tom-pmm-product-map) | Grounds product tours and demo scripts in a screen-by-screen product map | November 2026 |
 | [tom-pmm-brand-design](skills/tom-pmm-brand-design) | Tool-agnostic brand rules for colors, type, logo and on-screen copy | November 2026 |
+| [tom-pmm-panel-ui](skills/tom-pmm-panel-ui) | Mocks up app screens as PNGs from your tokens, with lint, render and preview scripts | November 2026 |
 
 More skills are added regularly.

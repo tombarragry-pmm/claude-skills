@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Screen mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+/* Every color is a token from references/tokens.md. Write no hex outside :root. */
+:root {
+  --canvas: #F1F2F5;
+  --surface: #F8F8FA;
+  --card: #FFFFFF;
+  --muted: #E2E3E9;
+  --ink: #1A1A2E;
+  --ink-2: #44475A;
+  --ink-3: #6B6E7B;
+  --primary: #2F6FEB;
+  --primary-hover: #1F5AD6;
+  --primary-strong: #1A48A8;
+  --primary-tint: #E8F0FD;
+  --border: #D0D2DA;
+  --success: #3B8C82;
+  --success-tint: #C9EFEA;
+  --warning: #D4602F;
+  --warning-tint: #FAC3B1;
+  --error: #C8414F;
+  --error-tint: #FCE4E6;
+  --shadow-float: 0 0 6px rgba(26, 26, 46, 0.08);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { font: 400 14px/20px 'Inter', sans-serif; color: var(--ink); background: var(--canvas); }
+[data-lucide] { width: 16px; height: 16px; stroke-width: 2; }
+
+/* Shell: main navigation rail + content card */
+.shell { display: flex; gap: 8px; height: 100vh; padding: 8px; }
+.rail { width: 64px; background: var(--card); border-radius: 12px; box-shadow: var(--shadow-float);
+  display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 0; }
+.rail .logo { width: 32px; height: 32px; border-radius: 8px; background: var(--primary); margin-bottom: 12px; }
+.rail a { width: 48px; height: 48px; border-radius: 6px; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 2px; color: var(--ink-2); text-decoration: none; font-size: 10px; font-weight: 500; }
+.rail a [data-lucide] { width: 20px; height: 20px; }
+.rail a.active { background: var(--primary-tint); color: var(--primary-strong); }
+.main { flex: 1; background: var(--surface); border-radius: 12px; box-shadow: var(--shadow-float);
+  display: flex; flex-direction: column; overflow: hidden; }
+
+/* SectionHeader */
+.section-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 32px;
+  border-bottom: 1px solid var(--border); }
+.section-header h1 { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; }
+.content { padding: 24px 32px; overflow: auto; flex: 1; }
+
+/* Buttons */
+.btn { height: 40px; padding: 0 16px; border-radius: 6px; border: none; font: 500 14px/20px 'Inter', sans-serif;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.btn-primary { background: var(--primary); color: var(--card); }
+.btn-outline { background: var(--card); color: var(--primary); box-shadow: inset 0 0 0 2px var(--primary); }
+.btn-secondary { background: var(--muted); color: var(--ink); }
+.btn-text { background: none; color: var(--ink-3); padding: 0 8px; }
+
+/* Toolbar, inputs */
+.toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+.input { height: 40px; border: 1px solid var(--border); border-radius: 6px; background: var(--card);
+  padding: 0 12px; display: inline-flex; align-items: center; gap: 8px; color: var(--ink-3); min-width: 280px; }
+
+/* Content boxes are flat: border, no shadow */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 24px; }
+
+/* Tables sit directly on the surface */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font-weight: 600; color: var(--ink); padding: 10px 12px; border-bottom: 1px solid var(--border); }
+td { padding: 12px; border-bottom: 1px solid var(--border); }
+td.meta { color: var(--ink-3); }
+
+/* Status pills: 20px, full radius, 12/600 */
+.pill { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600; }
+.pill-success { background: var(--success-tint); color: var(--success); }
+.pill-warning { background: var(--warning-tint); color: var(--warning); }
+.pill-error { background: var(--error-tint); color: var(--error); }
+
+/* Empty state: always an illustration (see assets/illustrations) */
+.empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 64px 0; }
+.illustration { width: 200px; height: 140px; border-radius: 12px; background: var(--primary-tint); }
+.illustration.has-art { background: none; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="rail">
+    <div class="logo"></div>
+    <a href="#"><i data-lucide="house"></i>Home</a>
+    <a href="#" class="active"><i data-lucide="clipboard-list"></i>Surveys</a>
+    <a href="#"><i data-lucide="layout-dashboard"></i>Boards</a>
+    <a href="#"><i data-lucide="plug"></i>Apps</a>
+  </nav>
+  <main class="main">
+    <header class="section-header">
+      <h1>Surveys</h1>
+      <button class="btn btn-primary"><i data-lucide="plus"></i>New survey</button>
+    </header>
+    <section class="content">
+      <!-- Replace this example with the screen. Use realistic content, never lorem ipsum. -->
+      <div class="toolbar">
+        <span class="input"><i data-lucide="search"></i>Search surveys</span>
+        <button class="btn btn-outline">Filters</button>
+      </div>
+      <table>
+        <thead><tr><th>Name</th><th>Status</th><th>Responses</th><th>Last edited</th></tr></thead>
+        <tbody>
+          <tr><td>Onboarding NPS</td><td><span class="pill pill-success">Live</span></td><td>1,284</td><td class="meta">2 days ago</td></tr>
+          <tr><td>Pricing page exit survey</td><td><span class="pill pill-warning">Paused</span></td><td>342</td><td class="meta">Last week</td></tr>
+          <tr><td>Feature request intake</td><td><span class="pill pill-error">Error</span></td><td>57</td><td class="meta">Yesterday</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+<script>lucide.createIcons();</script>
+</body>
+</html>
